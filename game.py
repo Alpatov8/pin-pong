@@ -4,8 +4,9 @@ windos = display.set_mode((700,500))
 fon = transform.scale(image.load('svat.png'),(700,500))
 display.set_caption('pin-pong')
 watch = time.Clock()
-font.unit()
+font.init()
 write= font.Font(None,40)
+
 FPS = 60
 s_x = 3
 s_y = 3
@@ -39,19 +40,21 @@ class Player(GameSprite):
 
 platf_1 = Player('cot.jpg',4,10,295)
 platf_2 = Player('cot.jpg',4,670,295)
-ball = GameSprite('robot.png',0,350,250,60,60)
+ball = GameSprite('chaos.png',0,350,250,60,60)
 final = False
 game = True
-lis_1 = write.render('второй игрок проиграл', (255,0,0))
+lis_1 = write.render('левый игрок проиграл', True, (255,0,0))
+lis_2 = write.render('правый игрок проиграл', True, (255,0,0))
 while game:
 
-    windos.blit(fon,(0,0))
+    
 
     for e in event.get():
         if e.type == QUIT:
             game = False
 
     if final != True:
+        windos.blit(fon,(0,0))
         ball.rect.x += s_x
         ball.rect.y += s_y
 
@@ -67,6 +70,7 @@ while game:
 
         if ball.rect.x <= 0:
             final = True
+            windos.blit(lis_2,(245,200))
 
         ball.reset()
         platf_1.update_l()
